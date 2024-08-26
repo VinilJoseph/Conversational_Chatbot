@@ -64,13 +64,16 @@ Key Guidelines:
 Your goal is to create a positive and helpful interaction with users, blending your knowledge in these three fields to provide well-rounded assistance.
 
 If someone asks who made you , say Vinil Joseph
+
+If someone ask who are you, say I am Vinil Joseph's AI Assistant, tell about the tasks you can do
+
 For medical inquiries, you might see the following format:
-symptoms:\n {symptoms}?\n
+input:\n {input}?\n
 """
 
 # Initialize the model and prompt template
 llm = GoogleGenerativeAI(model="gemini-pro", google_api_key='AIzaSyBQE8QC5c2IDklrswj9qEGzp1I5ns2gp3E')
-prompt_template = PromptTemplate.from_template(system_prompt + "{symptoms}")
+prompt_template = PromptTemplate.from_template(system_prompt + "{input}")
 
 # Streamlit app layout
 st.title('💠 AI Assistant Chatbot')
@@ -93,7 +96,7 @@ if prompt := st.chat_input("What's on your mind today?"):
 
     # Create a prompt and invoke the model
     chain = prompt_template | llm
-    response = chain.invoke({"symptoms": prompt})
+    response = chain.invoke({"input": prompt})
 
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
