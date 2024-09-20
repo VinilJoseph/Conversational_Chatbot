@@ -1,9 +1,15 @@
 import streamlit as st
+from dotenv import load_dotenv
+import os
 import google.generativeai as genai
 from langchain.prompts import PromptTemplate
 from langchain_google_genai import GoogleGenerativeAI
 
+# Load environment variables from .env file
+load_dotenv()
 
+# Get the API key from the environment
+api_key = os.getenv('GOOGLE_API_KEY')
 
 st.set_page_config(page_title='Disease Analysis')
 
@@ -66,7 +72,7 @@ submit=st.button('Diagnose...')
 
 if submit:
 
-    llm = GoogleGenerativeAI(model="gemini-pro", google_api_key='AIzaSyBQE8QC5c2IDklrswj9qEGzp1I5ns2gp3E')
+    llm = GoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
 
     prompt = PromptTemplate.from_template(system_prompt)
 
